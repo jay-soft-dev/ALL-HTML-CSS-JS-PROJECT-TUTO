@@ -1,0 +1,6 @@
+{
+  "name": "Weather Check",
+  "description": "Real-time weather forecasts, hourly conditions, air quality, and 7-day outlook.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="head-title">Punya Nagari - Editorial Management System (CMS)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-100 font-mukta text-gray-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Header Navigation -->
+    <header class="bg-white border-b border-gray-200 px-4 py-2.5 flex items-center justify-between z-10 shadow-sm">
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center gap-2">
+              <span id="brand-logo-text" class="brand-font text-3xl font-extrabold text-red-600 tracking-wider">
+                 Punya<span class="text-amber-500">Nagari</span></span>
+                <span id="header-badge" class="bg-red-100 text-red-800 text-xs font-bold px-2 py-0.5 rounded">Editor Desk</span>
+            </div>
+            <!-- Header Date Indicator -->
+            <div class="flex items-center space-x-2 text-xs font-medium text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+                <i class="fa-regular fa-calendar-days text-brand-red"></i>
+                <span id="headerLiveDate">Loading...</span>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Language Selector Dropdown -->
+            <div class="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 shadow-sm">
+                <i class="fa-solid fa-globe text-amber-400 text-xs"></i>
+                <select id="lang-select" onchange="changeLanguage(this.value)" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
+                    <option value="mr" class="bg-slate-900 text-white">मराठी</option>
+                    <option value="en" class="bg-slate-900 text-white">English</option>
+                </select>
+            </div>
+
+            <!-- Link To Master Control Page -->
+            <a href="master.html" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-3 py-2 rounded-lg transition flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-table-cells text-amber-400"></i>
+                <span id="master-btn-text">Master Tracker Sheet (Excel View)</span>
+            </a>
+
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-sm"></i>
+                <input type="text" id="search-input" oninput="searchArticles()" placeholder="Search News / Reporter..." class="pl-9 pr-4 py-1.5 bg-gray-100 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 w-56">
+            </div>
+
+            <button class="relative p-2 text-gray-600 hover:text-red-600 rounded-full hover:bg-gray-100">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+            </button>
+
+            <div class="flex items-center gap-2 border-l pl-3 border-gray-200">
+                <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-sm">JP</div>
+                <div class="text-left text-xs">
+                    <p class="font-bold text-gray-800 leading-none">JAY PAWAR</p>
+                    <p class="text-gray-500" id="user-role">Chief Editor (Pune Edition)</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Left Navigation Sidebar -->
+        <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between border-r border-slate-800">
+            <div class="py-3">
+                <div class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2" id="nav-main-title">MAIN NAVIGATION</div>
+                <nav class="space-y-1 px-2">
+                    <button class="nav-btn active w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition" onclick="filterArticles('all', this)">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-inbox text-amber-400"></i> <span id="nav-all">All News</span></span>
+                        <span id="badge-all" class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button class="nav-btn w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition" onclick="filterArticles('pending', this)">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-clock text-blue-400"></i> <span id="nav-pending">Pending Approval</span></span>
+                        <span id="badge-pending" class="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button class="nav-btn w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition" onclick="filterArticles('approved', this)">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-green-400"></i> <span id="nav-approved">Approved (Ready for Print)</span></span>
+                        <span id="badge-approved" class="bg-green-500/20 text-green-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button class="nav-btn w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition" onclick="filterArticles('revision', this)">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-pen-to-square text-orange-400"></i> <span id="nav-revision">Sent for Revision</span></span>
+                        <span id="badge-revision" class="bg-orange-500/20 text-orange-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button class="nav-btn w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition" onclick="filterArticles('rejected', this)">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-circle-xmark text-red-400"></i> <span id="nav-rejected">Rejected / Declined</span></span>
+                        <span id="badge-rejected" class="bg-red-500/20 text-red-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                    <button onclick="filterArticles('mailbox', this)" class="nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 transition">
+                         <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-amber-400"></i>
+                            <span id="nav-mailbox">Mail Box (Email Import)</span>
+                         </div>
+                         <span id="badge-mailbox" class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                    </button>
+                </nav>
+
+                <div class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mt-6 mb-2" id="nav-beats-title">BEATS / CATEGORIES</div>
+                <div class="space-y-1 px-2 text-sm">
+                    <button onclick="filterCategory('Local')" class="w-full text-left px-3 py-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition" id="beat-pune">• Pune City / Local</button>
+                    <button onclick="filterCategory('Politics')" class="w-full text-left px-3 py-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition" id="beat-politics">• Maharashtra / Politics</button>
+                    <button onclick="filterCategory('Crime')" class="w-full text-left px-3 py-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition" id="beat-crime">• Crime</button>
+                    <button onclick="filterCategory('Sports')" class="w-full text-left px-3 py-1.5 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition" id="beat-sports">• Sports</button>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-slate-800 text-xs text-slate-500">
+                <p>Punya Nagri Editorial Engine v2.4</p>
+                <p class="mt-1 text-slate-400"><span id="footer-master-status">Master Sheet Connected:</span> <span class="text-emerald-400">● Synced</span></p>
+            </div>
+        </aside>
+
+        <!-- Article List Column -->
+        <section class="w-80 bg-white border-r border-gray-200 flex flex-col h-full">
+            <div class="p-3 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+                <h2 class="font-bold text-gray-700 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-list-ul text-red-600"></i> <span id="inbox-title">Incoming News (Inbox)</span>
+                </h2>
+                <span id="article-count" class="text-xs bg-gray-200 text-gray-700 font-bold px-2 py-0.5 rounded-full">0</span>
+            </div>
+            
+            <div id="articles-container" class="flex-1 overflow-y-auto divide-y divide-gray-100">
+                <!-- Dynamic Content Loads via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Main Editor & Review Canvas -->
+        <main class="flex-1 bg-slate-50 flex flex-col h-full overflow-hidden">
+            <!-- Source Details & Metadata Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-3 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold" id="reporter-avatar">P</div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 leading-tight" id="meta-reporter">Pramod Deshpande</p>
+                            <p class="text-xs text-gray-500"><span id="lbl-source-route">Source:</span> <span class="text-blue-600 font-medium" id="meta-source">Email (Mail Import)</span></p>
+                        </div>
+                    </div>
+                    <div class="h-8 w-px bg-gray-200"></div>
+                    <div>
+                        <span class="text-xs text-gray-400 block" id="lbl-datetime">Date & Time</span>
+                        <span class="text-xs font-semibold text-gray-700" id="meta-time">10:45 AM | Sep 20</span>
+                    </div>
+                    <div class="h-8 w-px bg-gray-200"></div>
+                    <div>
+                        <span class="text-xs text-gray-400 block" id="lbl-category">Category / City</span>
+                        <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded" id="meta-category">Local / Pune</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span id="current-status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                        Pending Approval
+                    </span>
+                </div>
+            </div>
+
+            <!-- News Editing Area -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2">
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wide" id="lbl-headline">Main Headline</label>
+                    <input type="text" id="editor-headline" class="w-full text-2xl font-bold text-gray-900 border-b border-gray-200 focus:border-red-600 focus:outline-none pb-2 font-serif" placeholder="Enter main headline...">
+                    
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wide block pt-2" id="lbl-subheadline">Sub Headline</label>
+                    <input type="text" id="editor-subheadline" class="w-full text-base font-semibold text-gray-600 border-b border-gray-100 focus:border-red-600 focus:outline-none pb-1" placeholder="Enter sub headline...">
+                </div>
+
+                <!-- Rich Text Editor -->
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col h-[400px]">
+                    <div class="border-b border-gray-200 p-2 bg-gray-50 flex items-center justify-between flex-wrap text-sm text-gray-600 gap-2">
+                        <div class="flex items-center gap-2">
+                            <button class="p-1.5 hover:bg-gray-200 rounded font-bold" onclick="execCmd('bold')"><b>B</b></button>
+                            <button class="p-1.5 hover:bg-gray-200 rounded italic" onclick="execCmd('italic')"><i>I</i></button>
+                            <button class="p-1.5 hover:bg-gray-200 rounded underline" onclick="execCmd('underline')"><u>U</u></button>
+                            <div class="h-4 w-px bg-gray-300"></div>
+                            <button class="p-1.5 hover:bg-gray-200 rounded" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+                            <button class="p-1.5 hover:bg-gray-200 rounded" onclick="execCmd('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
+                            <button class="p-1.5 hover:bg-gray-200 rounded" onclick="execCmd('justifyFull')"><i class="fa-solid fa-align-justify"></i></button>
+                        </div>
+
+                        <!-- Language Conversion Buttons (Eng ➔ Marathi & Marathi ➔ Eng) -->
+                        <div class="flex items-center gap-2">
+                            <!-- English/Hinglish to Marathi Transliteration Button -->
+                            <button onclick="convertHinglishToMarathi()" class="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-language"></i> Eng ➔ मराठी
+                            </button>
+
+                            <!-- Marathi to English Translation Button -->
+                            <button onclick="convertMarathiToEnglish()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-globe"></i> मराठी ➔ Eng
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="editor-body" contenteditable="true" class="flex-1 p-4 focus:outline-none overflow-y-auto leading-relaxed text-gray-800 text-lg">
+                        Main article content goes here...
+                    </div>
+                </div>
+
+                <!-- Media Section -->
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wide block mb-3" id="lbl-attached-media">Attached Media</label>
+                    <div class="flex items-center gap-4">
+                        <div class="relative w-36 h-24 bg-gray-100 border border-gray-200 rounded-lg overflow-hidden">
+                            <img id="article-img" src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=400&q=80" alt="News Image" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <label class="text-xs font-medium text-gray-500" id="lbl-photo-caption">Photo Caption</label>
+                            <input type="text" id="photo-caption" class="w-full mt-1 border border-gray-300 rounded p-2 text-sm focus:ring-1 focus:ring-red-500 focus:outline-none" value="A view of traffic congestion in Pune.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel Actions -->
+        <aside class="w-80 bg-white border-l border-gray-200 flex flex-col justify-between h-full p-4 space-y-4">
+            <div class="space-y-4">
+                <h3 class="font-bold text-gray-800 text-base border-b pb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-red-600"></i> <span id="lbl-actions-header">Actions & Decisions</span>
+                </h3>
+
+                <div class="space-y-2">
+                    <button onclick="updateStatus('approved')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-check-circle"></i> <span id="btn-approve">Approve & Send to Print</span>
+                    </button>
+
+                    <button onclick="updateStatus('revision')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 px-4 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-rotate-left"></i> <span id="btn-revision">Send Back for Revision</span>
+                    </button>
+
+                    <button onclick="updateStatus('rejected')" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-trash-can"></i> <span id="btn-reject">Reject / Decline</span>
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 space-y-3 mt-4">
+                    <h4 class="text-xs font-bold text-gray-500 uppercase" id="lbl-layout-analysis">Layout Analysis</h4>
+                    <div class="flex justify-between text-sm"><span class="text-gray-600" id="lbl-word-count">Word Count:</span><span id="word-count" class="font-bold">0</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-600" id="lbl-char-count">Characters:</span><span id="char-count" class="font-bold">0</span></div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-xl transition-opacity opacity-0 pointer-events-none z-50">
+        <span id="toast-message" class="text-sm font-medium">Message</span>
+    </div>
+
+    <!-- Script Files linked in proper order -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

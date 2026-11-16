@@ -1,0 +1,147 @@
+/* 1. Global Reset & Universal Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Body Layout & Background Setup */
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
+}
+
+/* 3. Main Card Box Design */
+.card {
+    background-color: #ffffff;
+    width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth spring animation */
+}
+
+/* Enhanced Hover Effect for Card */
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+}
+
+/* 4. Profile Header & Avatar Styling */
+.profile-img {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.card-header h1 {
+    font-size: 22px;
+    color: #1e293b;
+    letter-spacing: 0.5px;
+}
+
+.tagline {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* 5. Skills Badges Styling */
+.skills-section {
+    margin: 22px 0;
+}
+
+.skills-section h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Interactive Badges */
+.badge {
+    background-color: #f1f5f9;
+    color: #334155;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: default;
+    border: 1px solid #e2e8f0;
+}
+
+.badge:hover {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    transform: scale(1.08);
+}
+
+/* 6. Buttons Styling */
+.card-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+    padding: 11px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+/* Primary Button (Blue) */
+.btn.primary {
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.btn.primary:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+}
+
+/* Secondary Button (Bordered) */
+.btn.secondary {
+    border: 1.5px solid #cbd5e1;
+    color: #334155;
+    background-color: transparent;
+}
+
+.btn.secondary:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    transform: translateY(-2px);
+}

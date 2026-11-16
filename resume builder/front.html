@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Resume - Builder & Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <!-- Brand Logo linked to front.html -->
+            <a href="front.html" class="brand-logo" style="text-decoration: none; color: inherit;">
+                <span class="logo-box">P</span> Perfect Resume
+            </a>
+
+            <!-- Resume Builder link -->
+            <a href="resume-builder.html" class="nav-item protected-route" style="text-decoration: none; color: inherit;">Resume Builder</a>
+            
+            <div class="nav-item-wrapper dropdown-wrapper">
+                Create <span class="arrow-icon">˅</span>
+                <div class="mega-menu-container">
+                   
+                    <div class="menu-column">
+                        <h3>Marketing</h3>
+                        <ul>
+                            <!-- Logo Maker page link -->
+                            <li><a href="logo.html" class="menu-link" style="text-decoration: none; color: inherit;">Logo</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-column">
+                        <h3>Document</h3>
+                        
+                          <li> <a href="poster.html" >Create Poster</a></li>
+                           <li><a href="brochure.html">Brochure</a></li>
+                            <li><a href="invoice.html" class="menu-link">Invoice</a></li>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+
+        <div class="nav-right">
+            <a href="resume-builder.html" class="btn-go-app protected-route" style="text-decoration: none; display: inline-block; text-align: center; line-height: normal;">Go to App</a>
+            <span class="grid-icon">::</span>
+            <button class="btn-sign-in" id="openAuthBtn">Sign in</button>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-left">
+            <div class="brand-badge">
+                <div class="brand-icon">P</div>
+                <span>Perfect Resume</span>
+            </div>
+            <h1 class="hero-title">Make perfect resumes for free in minutes.</h1>
+            <p class="hero-desc">
+                Perfect Resume makes it easy to create professional, ATS-friendly resumes for any job role, quickly and easily. Start with free, professionally designed templates at your fingertips.
+            </p>
+            <div>
+                <a href="resume-builder.html" class="btn-go-app protected-route" style="background-color: #2563eb; text-decoration: none; display: inline-block;">Create & Edit Your Resume</a>
+                <a href="invitation.html" class="btn-make-resume" style="background-color: #2563eb; text-decoration: none; display: inline-block;">Invitation Card</a>
+                <a href="business-card.html" class="btn-make-resume" style="background-color: #2563eb; text-decoration: none; display: inline-block;">Create Business Card</a>
+            </div>
+            <p class="disclaimer">* Available for instant PDF download worldwide</p>
+        </div>
+
+        <div class="hero-right">
+            <div class="main-card-bg">
+                <div class="resume-header-preview"></div>
+                <div class="resume-line" style="width: 80%;"></div>
+                <div class="resume-line" style="width: 100%;"></div>
+                <div class="resume-line" style="width: 90%;"></div>
+                <div class="resume-line" style="width: 60%;"></div>
+                <div class="resume-line" style="width: 100%;"></div>
+                <div class="resume-line" style="width: 75%;"></div>
+            </div>
+
+            <div class="floating-templates-card">
+                <div class="mini-card" style="background:#bfdbfe;"></div>
+                <div class="mini-card" style="background:#cbd5e1;"></div>
+                <div class="mini-card" style="background:#bbf7d0;"></div>
+                <div class="mini-card" style="background:#fbcfe8;"></div>
+                <div class="mini-card" style="background:#ddd6fe;"></div>
+                <div class="mini-card" style="background:#fed7aa;"></div>
+            </div>
+
+            <button class="btn-download-floating protected-route">📄 Download PDF</button>
+        </div>
+    </section>
+
+    <div class="top-cta-wrapper">
+        <button class="btn-center-cta protected-route" id="createResumeBtn2">Create your resume</button>
+    </div>
+
+    <div class="carousel-nav">
+        <button class="nav-btn prev-btn" id="prevBtn">‹</button>
+        <button class="nav-btn next-btn" id="nextBtn">›</button>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-card">
+            <span class="modal-close" id="closeAuthModal">&times;</span>
+            
+            <div class="modal-left">
+                <div class="modal-preview-badge">
+                    <span class="preview-icon">✨</span>
+                    <p>Build Your Resume Free</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Illustration" class="modal-img transparent-img">
+            </div>
+
+            <div class="modal-right">
+                <div class="brand-logo-container">
+                    <span class="logo-box mini">P</span>
+                    <span class="brand-title">Perfect Resume</span>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="auth-tab-btn active" id="tabSignInBtn">Sign In</button>
+                    <button class="auth-tab-btn" id="tabSignUpBtn">Create Account</button>
+                </div>
+
+                <div class="auth-view active" id="signInView">
+                    <div class="auth-buttons">
+                        <button class="btn-social google-btn">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18" alt="Google">
+                            Continue with Google
+                        </button>
+                        <button class="btn-social facebook-btn">
+                            <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" width="18" alt="Facebook">
+                            Continue with Facebook
+                        </button>
+                    </div>
+
+                    <div class="divider"><span>OR</span></div>
+
+                    <form class="auth-form" id="signInForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Sign In</button>
+                    </form>
+                </div>
+
+                <div class="auth-view hidden" id="signUpView">
+                    <div class="radio-group">
+                        <label><input type="radio" name="signupType" value="email" checked id="radioEmail"> Email</label>
+                        <label><input type="radio" name="signupType" value="phone" id="radioPhone"> Phone (OTP)</label>
+                    </div>
+
+                    <form class="auth-form" id="emailSignUpForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Create Password" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Create Account</button>
+                    </form>
+
+                    <form class="auth-form hidden" id="phoneSignUpForm">
+                        <div class="form-group">
+                            <input type="tel" placeholder="Mobile Number (+91...)" required>
+                        </div>
+                        <div class="form-group input-group-row">
+                            <input type="text" placeholder="Enter OTP" maxlength="6">
+                            <button type="button" class="btn-inline" id="sendOtpBtn">Get OTP</button>
+                        </div>
+                        <button type="submit" class="btn-submit">Verify & Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="steps-content">
+        <div class="media-container">
+            <picture>
+                <img alt="Resume Example" class="transparent-img" src="https://www.adobe.com/express/create/media_14668abe41718f9d7959f03389aa4c17331368973.png?width=2000&format=webply&optimize=medium" width="400" height="200" fetchpriority="high">
+            </picture>
+        </div>
+
+        <div class="media-container">
+            <picture>
+                <img alt="Resume Design" class="transparent-img" src="https://www.adobe.com/express/create/media_11680c8ea758ac4f378e898c7d948e1a51c076165.png?width=2000&format=webply&optimize=medium" width="500" height="500" fetchpriority="high">
+            </picture>
+        </div>
+
+        <div class="media-container">
+            <picture>
+                <img alt="Resume Download" class="transparent-img" src="https://www.adobe.com/express/create/media_141401a8427f57109335a76070cb03f0e3b166e6c.png?width=2000&format=webply&optimize=medium" width="500" height="500" fetchpriority="high">
+            </picture>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            GoogleAuthProvider, 
+            signInWithPopup,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1zdMeCbPgDIeLsawTxL0dMQ-Gfxp3q4g",
+            authDomain: "perfect-resume-674b9.firebaseapp.com",
+            projectId: "perfect-resume-674b9",
+            storageBucket: "perfect-resume-674b9.firebasestorage.app",
+            messagingSenderId: "558664783632",
+            appId: "1:558664783632:web:d5be3543e4e77784dd3795",
+            measurementId: "G-LK4SV76D0F"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+
+        function showModal() {
+            const authModal = document.getElementById("authModal");
+            if (authModal) authModal.classList.add("active");
+        }
+
+        function hideModal() {
+            const authModal = document.getElementById("authModal");
+            if (authModal) authModal.classList.remove("active");
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            const openAuthBtn = document.getElementById("openAuthBtn");
+            if (user) {
+                if (openAuthBtn) {
+                    openAuthBtn.textContent = "My Profile (" + (user.displayName || user.email.split('@')[0]) + ")";
+                    openAuthBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "profile.html";
+                    };
+                }
+            } else {
+                if (openAuthBtn) {
+                    openAuthBtn.textContent = "Sign in";
+                    openAuthBtn.onclick = (e) => {
+                        e.preventDefault();
+                        showModal();
+                    };
+                }
+            }
+        });
+
+        document.querySelectorAll(".protected-route").forEach(element => {
+            element.addEventListener("click", (e) => {
+                if (!currentUser) {
+                    e.preventDefault();
+                    alert("Please login here to continue.");
+                    showModal();
+                } else {
+                    const targetHref = element.getAttribute("href");
+                    if (targetHref && targetHref !== "#") {
+                        window.location.href = targetHref;
+                    }
+                }
+            });
+        });
+
+        const closeAuthModal = document.getElementById("closeAuthModal");
+        if (closeAuthModal) {
+            closeAuthModal.addEventListener("click", hideModal);
+        }
+
+        /* Tab Switch Logic */
+        const tabSignInBtn = document.getElementById("tabSignInBtn");
+        const tabSignUpBtn = document.getElementById("tabSignUpBtn");
+        const signInView = document.getElementById("signInView");
+        const signUpView = document.getElementById("signUpView");
+
+        if(tabSignInBtn && tabSignUpBtn) {
+            tabSignInBtn.addEventListener("click", () => {
+                tabSignInBtn.classList.add("active");
+                tabSignUpBtn.classList.remove("active");
+                signInView.classList.remove("hidden");
+                signUpView.classList.add("hidden");
+            });
+
+            tabSignUpBtn.addEventListener("click", () => {
+                tabSignUpBtn.classList.add("active");
+                tabSignInBtn.classList.remove("active");
+                signUpView.classList.remove("hidden");
+                signInView.classList.add("hidden");
+            });
+        }
+
+        /* Email vs Phone Toggle */
+        const radioEmail = document.getElementById("radioEmail");
+        const radioPhone = document.getElementById("radioPhone");
+        const emailSignUpForm = document.getElementById("emailSignUpForm");
+        const phoneSignUpForm = document.getElementById("phoneSignUpForm");
+
+        if(radioEmail && radioPhone) {
+            radioEmail.addEventListener("change", () => {
+                emailSignUpForm.classList.remove("hidden");
+                phoneSignUpForm.classList.add("hidden");
+            });
+            radioPhone.addEventListener("change", () => {
+                phoneSignUpForm.classList.remove("hidden");
+                emailSignUpForm.classList.add("hidden");
+            });
+        }
+
+        if (emailSignUpForm) {
+            emailSignUpForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const email = emailSignUpForm.querySelector('input[type="email"]').value;
+                const password = emailSignUpForm.querySelector('input[type="password"]').value;
+
+                try {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    alert("Account created successfully! 🎉");
+                    hideModal();
+                } catch (error) {
+                    alert("Error: " + error.message);
+                }
+            });
+        }
+
+        const signInForm = document.getElementById("signInForm");
+        if (signInForm) {
+            signInForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const email = signInForm.querySelector('input[type="email"]').value;
+                const password = signInForm.querySelector('input[type="password"]').value;
+
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                    alert("Login successful! 👍");
+                    hideModal();
+                } catch (error) {
+                    alert("Invalid email or password: " + error.message);
+                }
+            });
+        }
+
+        const googleBtn = document.querySelector(".google-btn");
+        if (googleBtn) {
+            googleBtn.addEventListener("click", async () => {
+                try {
+                    const provider = new GoogleAuthProvider();
+                    await signInWithPopup(auth, provider);
+                    alert("Logged in with Google successfully! 🚀");
+                    hideModal();
+                } catch (error) {
+                    alert("Google Sign-In failed: " + error.message);
+                }
+            });
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
